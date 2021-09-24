@@ -1,19 +1,14 @@
 package com.jean.goodwords
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
-import com.jean.goodwords.databinding.ActivityMainBinding
+import android.widget.ListView
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding : ActivityMainBinding
-
+class SentenceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_sentence)
 
         val sentenceList = mutableListOf<String>()
         sentenceList.add("삶이 있는 한 희망은 있다.")
@@ -24,15 +19,9 @@ class MainActivity : AppCompatActivity() {
         sentenceList.add("직업에서 행복을 찾아라. 아니면 행복이 무엇인지 절대 모를 것이다.")
         sentenceList.add("신은 용기있는자를 결코 버리지 않는다.")
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.showAllSentenceBtn.setOnClickListener{
-
-            val intent = Intent(this, SentenceActivity::class.java)
-            startActivity(intent)
-
-        }
-
-        binding.goodWordTextArea.setText(sentenceList.random())
+        val sentenceAdapter = ListViewAdapter(sentenceList)
+        val listView = findViewById<ListView>(R.id.sentenceListView)
+        listView.adapter = sentenceAdapter
 
     }
 }
